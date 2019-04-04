@@ -1,0 +1,3 @@
+rootProject.name = 'TIC_login_sample'
+
+include ':app'

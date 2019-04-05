@@ -6,37 +6,40 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {
+import React, { Component } from "react";
+import { 
   Platform, 
   StyleSheet, 
   Text, 
-  View,
-  TextInput
-  } from 'react-native';
+  View, 
+  TextInput 
+} from "react-native";
 
 type Props = {};
 export default class InputBar extends Component<Props> {
   constructor(props) {
     super(props);
-    this.state = { 
-      text: '',
-      password: '',
+    this.state = {
+      text: "",
+      password: ""
     };
   }
   render() {
     return (
-      <View style={{height: 75, flexDirection: 'row', alignContent: 'center'}}>
+      <View
+        style={styles.container}
+      >
+      <View style={{flex:1, flexDirection: 'row',justifyContent: 'space-between'}}>
         <Text style={styles.title}>{this.props.title}</Text>
         <TextInput
           textContentType={this.props.textContentType}
           keyboardType={this.props.keyboardType}
           placeholder={this.props.placeholder}
           style={styles.input}
-          onChangeText={(text) => this.setState({text})}
+          onChangeText={text => this.setState({ text })}
           value={this.state.text}
         />
-
+      </View>
       </View>
     );
   }
@@ -44,23 +47,23 @@ export default class InputBar extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
+    height: 75, 
+    width: '100%',
+    flexDirection: "row", 
+    alignContent: "center",
+    margin: 10,
   },
   title: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 5,
   },
   input: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    height: 40,
+    fontSize: 20,
+    borderColor: "gray",
+    borderBottomWidth: 1,
+    marginRight:30,
+    width: 200,
   },
 });

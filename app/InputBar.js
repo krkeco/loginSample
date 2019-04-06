@@ -36,10 +36,12 @@ export default class InputBar extends Component<Props> {
           keyboardType={this.props.keyboardType}
           placeholder={this.props.placeholder}
           style={styles.input}
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
+          secureTextEntry={this.props.secureTextEntry}
+          onChangeText={text => this.props.setText(text)}
+          value={this.props.value}
         />
       </View>
+
       </View>
     );
   }

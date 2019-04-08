@@ -3,10 +3,13 @@
 To get the app running:
 ##Ensure you have npm, react-native-cli, and nodejs installed on your machine.
 
-#Option 1 (run on device)
+##Option 1 View video
+https://drive.google.com/open?id=1oZ85EMRH_jSXpgxHgKOtyKhGs-oo_9BI
+
+#Option 2 (run on device)
 ##Go to the apk folder and download the apk to your Android dev phone and install/run
 
-#Option 2 (run in dev mode from phone onto device)
+#Option 3 (run in dev mode from phone onto device)
 ##Clone the repository
 
 ##Add your sdk location.properties file

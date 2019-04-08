@@ -12,6 +12,7 @@ import {
   StyleSheet,
   View,
   AsyncStorage,
+  ActivityIndicator,
   ScrollView,
   Text,
   Image
@@ -26,10 +27,11 @@ export default class Main extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      email: "email@example.com",
+      password: "123456",
       hash: "",
-      secureEntry: true
+      secureEntry: true,
+      loggingIn: false,
     };
   }
 
@@ -42,92 +44,9 @@ this.logIn(hash);
 
 }
 
-  // async getToken() {
-  //   try {
-  //     let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-  //     let accessEmail = await AsyncStorage.getItem(ACCESS_EMAIL);
-
-  //     if (!accessToken || !accessEmail) {
-  //       this.setState({ error: "we have an error" });
-  //     } else {
-  //       this.setState({ access_token: accessToken });
-  //       this.setState({ email: accessEmail });
-  //       this.props.setAccessToken(accessToken);
-  //       this.props.setAccessEmail(accessEmail);
-  //     }
-  //   } catch (error) {
-  //     Alert.alert(
-  //       "Server Error",
-  //       "Please try logging in again",
-  //       [
-  //         {
-  //           text: "Ok",
-  //           onPress: () => {
-  //             this.getToken();
-  //           },
-  //           style: "OK"
-  //         }
-  //       ],
-  //       { cancelable: true }
-  //     );
-  //     console.log("Something went wrong fetching accesstoken");
-  //   }
-
-  //   this.verifyToken();
-  // }
-  // async verifyToken() {
-  
-  //     try {
-  //       let response = await fetch(this.props.safetyspot_base_url + "/api/user/", {
-  //         method: "GET",
-  //         headers: {
-  //           "User-Token": this.props.access_token,
-  //           Email: this.props.access_email
-  //         }
-  //       });
-
-  //       let res = await response.text();
-
-  //       if (response.status >= 200 && response.status < 300) {
-  //         //response to json
-  //         var userArray = JSON.parse(res);
-  //         var organizationArray = userArray.organization;
-  //         //json to state
-  //         this.setState({ organizations: organizationArray });
-  //         this.setState({ first_name: userArray.first_name });
-  //         this.setState({ email: userArray.email });
-  //         this.setState({ organization_name: userArray.organization });
-  //         this.props.isLegit();
-  //         this.props.notLoggingIn();
-  //       } else {
-  //         let error = res;
-  //         throw error;
-  //       }
-  //     } catch (error) {
-  //       this.setState({ error: error });
-  //       console.log("error " + error);
-  //       this.setState({ showProgress: false });
-  //     }
-  
-  // }
-
-  // async storeToken(accessToken, email) {
-  //   try {
-  //     await AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
-  //     await AsyncStorage.setItem(ACCESS_EMAIL, email);
-  //     console.log("Token was stored successfull ");
-  //   } catch (error) {
-  //     Alert.alert(
-  //       "Server Error",
-  //       "Please try logging in again: " + error,
-  //       [{ text: "Ok", onPress: () => console.log("continue"), style: "OK" }],
-  //       { cancelable: true }
-  //     );
-  //     console.log("Something went wrong");
-  //   }
-  // }
-
-
+componentDidMount() {
+  alert('Credentials are currently hardcoded, you can change them if you like.  The password is currently required, but the email is not.')
+}
 
   logIn = async (hash) => {
     try {
@@ -152,9 +71,11 @@ this.logIn(hash);
         this.setState({
           password: '',
           email: '',
+          loggingIn: false,
       })
         alert(res.toString());
       } else {
+        this.setState({loggingIn: false});
         let error = res;
         throw error;
       }
@@ -165,6 +86,14 @@ this.logIn(hash);
   };
 
   render() {
+
+    let loginButton = <LoginButton onPress={()=>{
+      this.setState({loggingIn: true},this.createToken());
+    }} />;
+    if(this.state.loggingIn){
+      //disable loginbutton while logging in
+      loginButton = <ActivityIndicator size="large" color="#0000ff" />;
+    }
     return (
       <View style={styles.container}>
 
@@ -191,7 +120,7 @@ this.logIn(hash);
           placeholder="password"
         />
         
-        <LoginButton onPress={this.createToken} />
+        {loginButton}
       </View>
     );
   }

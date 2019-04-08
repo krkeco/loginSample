@@ -41,13 +41,12 @@ createToken = () => {
 
 var salt = bcrypt.genSaltSync(10);
 var hash = bcrypt.hashSync(this.state.password, salt);
-// alert(hash);
 this.logIn(hash);
 
 }
 
 componentDidMount() {
-  alert('Credentials are currently hardcoded, simply login by clicking the button.  If you would prefer to ')
+  alert('Credentials are currently hardcoded, login by simply clicking the button.')
 }
 
   logIn = async (hash) => {
@@ -132,13 +131,16 @@ componentDidMount() {
         />
         
         {loginButton}
+
       </View>;
 
       if(this.state.loggedIn){
 
         currentScreen = 
         <View style={styles.container}>
+
           {logo}
+        
           <View style={styles.profileContainer}>
             <Text style={styles.titleText}>Welcome</Text>
             <Text style={styles.titleText}>{this.state.username}</Text>
@@ -174,7 +176,6 @@ const styles = StyleSheet.create({
     
   },
   logo: {
-    
     width: 200,
     height: 200,
     marginLeft: 'auto',
